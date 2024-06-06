@@ -1,4 +1,4 @@
-package com.example.mvc_webapp;
+package com.example.m295;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;

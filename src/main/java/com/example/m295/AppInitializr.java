@@ -1,10 +1,7 @@
-package com.example.mvc_webapp;
+package com.example.m295;
 
-import com.example.mvc_webapp.JpaConfig;
-import com.example.mvc_webapp.RestConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
-import org.glassfish.jersey.servlet.WebConfig;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.WebApplicationInitializer;

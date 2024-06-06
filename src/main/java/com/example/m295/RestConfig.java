@@ -1,7 +1,7 @@
-package com.example.mvc_webapp;
+package com.example.m295;
 
-import com.example.mvc_webapp.services.ModulController;
-import com.example.mvc_webapp.util.AuthenticationFilter;
+import com.example.m295.services.Controller;
+import com.example.m295.util.AuthenticationFilter;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
@@ -14,7 +14,7 @@ public class RestConfig extends Application {
     public Set<Class<?>> getClasses() {
         return new HashSet<Class<?>>(
                 Arrays.asList(
-                        ModulController.class,
+                        Controller.class,
                         AuthenticationFilter.class));
     }
 }
