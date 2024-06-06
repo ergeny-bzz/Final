@@ -23,6 +23,6 @@ public class AppInitializr implements WebApplicationInitializer {
 
         servletContext.addListener(new ContextLoaderListener(context));
         servletContext.setInitParameter(
-                "contextConfigLocation", "com.example.mvc_webapp");
+                "contextConfigLocation", "com.example.m295");
     }
 }
