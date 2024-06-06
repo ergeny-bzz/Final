@@ -1,6 +1,5 @@
 package com.example.mvc_webapp;
 
-import com.example.mvc_webapp.service.ModulController;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.*;

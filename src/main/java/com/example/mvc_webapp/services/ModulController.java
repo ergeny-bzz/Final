@@ -1,9 +1,7 @@
-package com.example.mvc_webapp.service;
+package com.example.mvc_webapp.services;
 
 import com.example.mvc_webapp.model.Modul;
 import com.example.mvc_webapp.repository.IModuleRepository;
-import com.example.mvc_webapp.util.ModulNotFoundException;
-import com.example.mvc_webapp.util.ServerErrorException;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
@@ -51,7 +49,6 @@ public class ModulController {
         }
         if (module.isEmpty()) {
             logger.warn("No Module Found");
-            throw new ModulNotFoundException("Module not found");
         }
         logger.info("Found Module!");
         return Response.ok().entity(module).build();
@@ -69,7 +66,7 @@ public class ModulController {
             return Response.ok().entity("Successfully created module").build();
         } catch (Exception e) {
             logger.error("Server could not create module {}...", module.getBezeichnung());
-            throw new ServerErrorException("Server couldn't create module");
+            return Response.serverError().entity("Server Error").build();
         }
     }
 

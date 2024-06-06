@@ -1,9 +1,7 @@
 package com.example.mvc_webapp;
 
-import com.example.mvc_webapp.service.LottoController;
-import com.example.mvc_webapp.service.ModulController;
+import com.example.mvc_webapp.services.ModulController;
 import com.example.mvc_webapp.util.AuthenticationFilter;
-import com.example.mvc_webapp.util.ModulNotFoundExceptionHandler;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
@@ -17,8 +15,6 @@ public class RestConfig extends Application {
         return new HashSet<Class<?>>(
                 Arrays.asList(
                         ModulController.class,
-                        LottoController.class,
-                        ModulNotFoundExceptionHandler.class,
                         AuthenticationFilter.class));
     }
 }
