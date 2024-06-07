@@ -357,3 +357,19 @@ components:
           nullable: false
           $ref: "#/components/schemas/trips"
 ```
+
+## Autor
+
+Yunus Ergen
+ergeny@bzz.ch
++41 078 422 68 36
+
+
+## Summary
+
+This application manages Reviews for different Trips. 
+
+
+## Hinweise 
+
+You need an IDE, Jakarta 22, to use this Project
