@@ -325,6 +325,35 @@ paths:
             application/json:
               schema:
                 type: "string"
+  /resources/api/reviews/sql:
+    post:
+      operationId: "executeSql"
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "string"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        500:
+          description: "Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
 components:
   securitySchemes: {}
   schemas:
@@ -356,6 +385,7 @@ components:
         tripId:
           nullable: false
           $ref: "#/components/schemas/trips"
+
 ```
 
 ## Autor
