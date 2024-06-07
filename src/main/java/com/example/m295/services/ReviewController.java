@@ -2,17 +2,24 @@ package com.example.m295.services;
 
 import com.example.m295.model.Review;
 import com.example.m295.repository.IReviewRepository;
+import com.fasterxml.jackson.databind.introspect.TypeResolutionContext;
 import jakarta.annotation.security.*;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.antlr.v4.runtime.atn.SemanticContext;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.stereotype.*;
 import com.example.m295.util.ServerErrorException;
 import com.example.m295.util.NotFoundException;
 
+import javax.sql.DataSource;
+import javax.xml.crypto.Data;
+import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +29,10 @@ import java.util.Optional;
 public class ReviewController {
     @Autowired
     private IReviewRepository iReviewRepository;
+
+    @Autowired
+    private DataSource dataSource;
+
 
     Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
@@ -43,9 +54,9 @@ public class ReviewController {
     }
 
 
-    @PermitAll
+    @RolesAllowed("USER")
     @GET
-    @Path("/available/{status}")
+    @Path("/recommend/{status}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Review> findAllByRecommend(@PathParam("status") boolean status) {
         return iReviewRepository.findAllByRecommend(status);
@@ -53,13 +64,19 @@ public class ReviewController {
 
     @PermitAll
     @GET
-    @Path("/destination/{destination}")
+    @Path("/review/{review}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Review> getTripsByDestination(@PathParam("destination") String destination) {
-        return iReviewRepository.findAllByReview(destination);
+    public Response getTripsByDestination(@PathParam("review") String review) {
+        List<Review> reviews = iReviewRepository.findAllByReview(review);
+        if (reviews.isEmpty()) {
+            return Response.noContent().build();
+        } else {
+            return Response.ok(reviews).build();
+        }
     }
 
-    @PermitAll
+
+    @RolesAllowed("USER")
     @GET
     @Path("/exists/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,8 +91,56 @@ public class ReviewController {
 
     }
 
-
+    /*
     @PermitAll
+    @POST
+    @Path("/sql")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response executeSql(){
+        try(Connection connection = dataSource.getConnection()){
+            ScriptUtils.executeSqlScript(connection, new ClassPathResource("script.sql"));
+            return Response.ok().build();
+        }catch (Exception e){
+            logger.warn("Couldn't execute SQL Script");
+            throw new ServerErrorException("Server Couldn't execute SQL Script");
+        }
+    }
+     */
+
+    @RolesAllowed("USER")
+    @POST
+    @Path("/bulk-create")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response createMultiple(@Valid List<Review> reviews) {
+        try {
+            iReviewRepository.saveAll(reviews);
+            logger.info("Created multiple reviews");
+            return Response.ok().entity("Successfully created multiple reviews").build();
+        } catch (Exception e) {
+            logger.error("Server could not create multiple reviews", e);
+            throw new ServerErrorException("Server couldn't create multiple reviews");
+        }
+    }
+
+
+
+    @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
+    @RolesAllowed("ADMIN")
+    public Response deleteAll() {
+        try {
+            iReviewRepository.deleteAll();
+            logger.info("Deleted all players");
+            return Response.ok().entity("Deleted all players").build();
+        } catch (Exception e) {
+            logger.error("Server could not delete players");
+            throw new ServerErrorException("Server couldn't delete players");
+        }
+    }
+
+
+    @RolesAllowed("USER")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getModules() {
@@ -98,7 +163,7 @@ public class ReviewController {
 
 
 
-    @PermitAll
+    @RolesAllowed("USER")
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -120,7 +185,7 @@ public class ReviewController {
 
     }
 
-    @PermitAll
+    @RolesAllowed("USER")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
@@ -135,7 +200,7 @@ public class ReviewController {
         }
     }
 
-    @PermitAll
+    @RolesAllowed("ADMIN")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)

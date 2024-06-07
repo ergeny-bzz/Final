@@ -46,7 +46,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             final String password = tokenizer.nextToken();
             if (method.isAnnotationPresent(RolesAllowed.class)) {
                 RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
-                Set<String> rolesSet = new HashSet<String>(Arrays.asList(rolesAnnotation.value()));
+                Set<String> rolesSet = new HashSet<>(Arrays.asList(rolesAnnotation.value()));
                 if (!isUserAllowed(username, password, rolesSet)) {
                     requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("You cannot access this resource").build());
                     return;
@@ -57,12 +57,20 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
     private boolean isUserAllowed(final String username, final String password, final Set<String> rolesSet) {
         boolean isAllowed = false;
+
+        // Define users and their roles
+        String userRole = null;
         if (username.equals("admin") && password.equals("1234")) {
-            String userRole = "ADMIN";
-            if (rolesSet.contains(userRole)) {
-                isAllowed = true;
-            }
+            userRole = "ADMIN";
+        } else if (username.equals("user") && password.equals("123")) {
+            userRole = "USER";
         }
+
+        // Check if the user role is allowed
+        if (userRole != null && rolesSet.contains(userRole)) {
+            isAllowed = true;
+        }
+
         return isAllowed;
     }
 }
