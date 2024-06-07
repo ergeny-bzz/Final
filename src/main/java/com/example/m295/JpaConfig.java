@@ -30,6 +30,7 @@ public class JpaConfig
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(hibernateProperties());
         return em;
+
     }
 
     @Bean

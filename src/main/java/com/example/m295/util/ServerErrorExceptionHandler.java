@@ -7,7 +7,8 @@ import jakarta.ws.rs.ext.Provider;
 @Provider
 public class ServerErrorExceptionHandler implements ExceptionMapper<ServerErrorException> {
     @Override
-    public Response toResponse(ServerErrorException e) {
+    public Response toResponse(ServerErrorException e)
+    {
         return Response.serverError().entity(e.getMessage()).build();
     }
 }

@@ -126,7 +126,7 @@ public class ReviewControllerTests {
     }
 
 
-    /*
+
     // Positive Test for executeSql
     @Test
     @Order(13)
@@ -138,20 +138,11 @@ public class ReviewControllerTests {
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
 
-    // Negative Test for executeSql
-    @Test
-    @Order(14)
-    public void givenExecuteSql_whenServerError_thenResponseCodeInternalServerError() throws IOException {
-        HttpPost request = new HttpPost(BASE_URL + "/sql");
-        String authHeader = getAuthHeader("admin", "1234");
-        request.addHeader("Authorization", authHeader);
-        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-        assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, httpResponse.getStatusLine().getStatusCode());
-    }
+
 
     // Edge Test for executeSql
     @Test
-    @Order(15)
+    @Order(195)
     public void givenExecuteSql_whenAuthFails_thenResponseUnauthorized() throws IOException {
         HttpPost request = new HttpPost(BASE_URL + "/sql");
         String authHeader = getAuthHeader("admin", "wrongpassword");
@@ -161,7 +152,7 @@ public class ReviewControllerTests {
     }
 
 
-     */
+
     // Positive Test for createMultiple
     @Test
     @Order(16)
@@ -345,6 +336,8 @@ public class ReviewControllerTests {
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
+
+
 
 
 

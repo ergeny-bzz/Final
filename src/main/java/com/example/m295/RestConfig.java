@@ -18,6 +18,7 @@ public class RestConfig extends Application {
         return new HashSet<Class<?>>(
                 Arrays.asList(
                         TripController.class,
+
                         ReviewController.class,
                         AuthenticationFilter.class,
                         ServerErrorExceptionHandler.class,

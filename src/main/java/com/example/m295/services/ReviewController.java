@@ -91,8 +91,8 @@ public class ReviewController {
 
     }
 
-    /*
-    @PermitAll
+
+    @RolesAllowed("ADMIN")
     @POST
     @Path("/sql")
     @Produces(MediaType.TEXT_PLAIN)
@@ -102,10 +102,10 @@ public class ReviewController {
             return Response.ok().build();
         }catch (Exception e){
             logger.warn("Couldn't execute SQL Script");
-            throw new ServerErrorException("Server Couldn't execute SQL Script");
+            throw new ServerErrorException("Server Couldn't execute SQL Script\n" + e);
         }
     }
-     */
+
 
     @RolesAllowed({"USER", "ADMIN"})
     @POST
@@ -199,6 +199,7 @@ public class ReviewController {
             throw new ServerErrorException("Server couldn't create Reviews");
         }
     }
+
 
 
 

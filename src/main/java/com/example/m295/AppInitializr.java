@@ -26,3 +26,4 @@ public class AppInitializr implements WebApplicationInitializer {
                 "contextConfigLocation", "com.example.m295");
     }
 }
+

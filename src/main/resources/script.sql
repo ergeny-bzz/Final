@@ -9,7 +9,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema m295
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `m295` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `mydb` ;
 
 USE `m295` ;
 
@@ -23,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `m295`.`trips` (
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
+
 
 
 -- -----------------------------------------------------

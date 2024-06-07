@@ -25,4 +25,5 @@ public interface IReviewRepository extends JpaRepository<Review, Integer> {
     @Transactional
     @Query("DELETE FROM Review r WHERE r.createdAt = :date")
     void deleteAllByCreatedAt(LocalDateTime date);
+
 }

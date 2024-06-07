@@ -24,6 +24,7 @@ import java.util.Optional;
 @Path("/api/trips")
 public class TripController{
 
+
     @Autowired
     private ITripRepository iTripRepository;
     @Autowired
