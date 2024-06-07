@@ -11,28 +11,24 @@ This project is a Jakarta EE application using Spring Data JPA, Lombok, and Java
 
 ![image](https://github.com/ergeny-bzz/Final/assets/114403168/0b6e255c-194a-4e79-a64a-c757f6023c4d)
 
-## Validierugnsregeln
+## Validation Rules
 
-* @FutureOrPresent: Diese Regel stellt sicher, dass Datumswerte in der Zukunft oder in der Gegenwart liegen.
-* @Size(min = 3, max = 64): Diese Regel stellt sicher, dass die Länge von String- oder Varchar-Feldern zwischen 3 und 64 Zeichen liegt.
+* @FutureOrPresent: This rule ensures that date values are in the future or present.
+* @Size(min = 3, max = 64): This rule ensures that the length of string or varchar fields is between 3 and 64 characters.
 
-## Berechtigungsmatrix
+## Authorization matrix
 
 ### Admin
-* Benutzername: admin
-* Passwort: 1234
+* Username: admin
+* Password: 1234
   
-#### Berechtigungen:
-* Vollzugriff auf alle Systemfunktionen
-* Verwaltung von Benutzern und Berechtigungen
-* Zugriff auf administrative Einstellungen und Konfigurationsseiten
+#### Authorizations:
+* Access to all Methods
 
 ### User
 
-* Benutzername: user
-* Passwort: 123
-#### Berechtigungen:
-* Zugriff auf grundlegende Systemfunktionen
-* Nutzung der Hauptanwendungsfunktionen
-* Eingeschränkter Zugriff auf bestimmte administrative Funktionen
+* Username: user
+* Password: 123
+#### Authorizations:
+* Access to POST and GET
 
