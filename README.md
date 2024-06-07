@@ -11,6 +11,10 @@ This project is a Jakarta EE application using Spring Data JPA, Lombok, and Java
 
 ![image](https://github.com/ergeny-bzz/Final/assets/114403168/0b6e255c-194a-4e79-a64a-c757f6023c4d)
 
+
+![image](https://github.com/ergeny-bzz/Final/assets/114403168/8a0dcb35-f7e7-40ee-ac5b-828e5ed7c53e)
+
+
 ## Validation Rules
 
 * @FutureOrPresent: This rule ensures that date values are in the future or present.
