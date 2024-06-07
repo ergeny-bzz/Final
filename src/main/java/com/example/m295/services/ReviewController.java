@@ -54,7 +54,7 @@ public class ReviewController {
     }
 
 
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER", "ADMIN"})
     @GET
     @Path("/recommend/{status}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -76,7 +76,7 @@ public class ReviewController {
     }
 
 
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER", "ADMIN"})
     @GET
     @Path("/exists/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -107,7 +107,7 @@ public class ReviewController {
     }
      */
 
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER", "ADMIN"})
     @POST
     @Path("/bulk-create")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -140,7 +140,7 @@ public class ReviewController {
     }
 
 
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER", "ADMIN"})
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getModules() {
@@ -163,7 +163,7 @@ public class ReviewController {
 
 
 
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER", "ADMIN"})
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -185,7 +185,7 @@ public class ReviewController {
 
     }
 
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER", "ADMIN"})
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
