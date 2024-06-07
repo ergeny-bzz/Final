@@ -2,8 +2,10 @@ package com.example.m295.services;
 
 
 import com.example.m295.model.Trip;
+import com.example.m295.repository.IReviewRepository;
 import com.example.m295.repository.ITripRepository;
 import jakarta.annotation.security.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -15,35 +17,44 @@ import com.example.m295.util.ServerErrorException;
 import com.example.m295.util.NotFoundException;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
-@Path("/api/rooms")
-public class TripController {
+@Path("/api/trips")
+public class TripController{
 
     @Autowired
     private ITripRepository iTripRepository;
+    @Autowired
+    private IReviewRepository iReviewRepository;
 
     Logger logger = LoggerFactory.getLogger(TripController.class);
 
     @PermitAll
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRooms() {
+    public Response getTrips() {
         try {
             var rooms = iTripRepository.findAll();
 
             if (rooms.isEmpty()) {
-                logger.warn("No rooms found...");
-                return Response.noContent().entity("No rooms found").build();
+                logger.warn("No Trips found...");
+                return Response.noContent().entity("No Trips found").build();
             }
-            logger.info("Found {} rooms...", rooms.size());
+            logger.info("Found {} Trips...", rooms.size());
             return Response.ok().entity(rooms).build();
         } catch (Exception e) {
-            logger.error("Server could not get rooms...");
-            throw new ServerErrorException("Server couldn't get rooms");
+            logger.error("Server could not get Trips...");
+            throw new ServerErrorException("Server couldn't get Trips");
         }
     }
+
+
+
+
+
+
 
     @PermitAll
     @GET
@@ -54,14 +65,14 @@ public class TripController {
         try {
             trip = iTripRepository.findById(id);
         } catch (Exception e) {
-            logger.error("Server could not get room {}...", id);
-            throw new ServerErrorException("Server couldn't get room");
+            logger.error("Server could not get Trip {}...", id);
+            throw new ServerErrorException("Server couldn't get Trip");
         }
         if (trip.isEmpty()) {
-            logger.warn("No room found...");
-            throw new NotFoundException("room not found");
+            logger.warn("No Trip found...");
+            throw new NotFoundException("Trip not found");
         } else {
-            logger.info("Found room...");
+            logger.info("Found Trip...");
             return Response.ok().entity(trip).build();
         }
 
@@ -74,11 +85,11 @@ public class TripController {
     public Response create(@Valid Trip trip) {
         try {
             iTripRepository.save(trip);
-            logger.info("Created room {}...", trip.getTripId());
-            return Response.ok().entity("Successfully created room").build();
+            logger.info("Created Trip {}...", trip.getTripId());
+            return Response.ok().entity("Successfully created Trip").build();
         } catch (Exception e) {
-            logger.error("Server could not create room {}...", trip.getDestination());
-            throw new ServerErrorException("Server couldn't create room");
+            logger.error("Server could not create Trip {}...", trip.getDestination());
+            throw new ServerErrorException("Server couldn't create Trip");
         }
     }
 
@@ -91,15 +102,15 @@ public class TripController {
         if (iTripRepository.existsById(id)) {
             try {
                 iTripRepository.save(trip);
-                logger.info("Updated room {}...", trip.getTripId());
-                return Response.ok().entity("Successfully updated room:\n" + trip).build();
+                logger.info("Updated Trip {}...", trip.getTripId());
+                return Response.ok().entity("Successfully updated Trip:\n" + trip).build();
             } catch (Exception e) {
-                logger.error("Server could not update room {}...", trip.getTripId());
-                throw new ServerErrorException("Server couldn't update room");
+                logger.error("Server could not update Trip {}...", trip.getTripId());
+                throw new ServerErrorException("Server couldn't update Trip");
             }
         }
-        logger.warn("No room with id {} found to update...", id);
-        throw new NotFoundException("There is no existing room with id: " + id + " to update.");
+        logger.warn("No Trip with id {} found to update...", id);
+        throw new NotFoundException("There is no existing Trip with id: " + id + " to update.");
     }
 
     @RolesAllowed("ADMIN")
@@ -108,17 +119,20 @@ public class TripController {
     @Produces(MediaType.TEXT_PLAIN)
     public Response delete(@PathParam("id") int id) {
         if (!iTripRepository.existsById(id)) {
-            logger.warn("No room with id {} found to delete", id);
-            throw new NotFoundException("There is no existing room with id: " + id + " to delete");
+            logger.warn("No Reviews with id {} found to delete", id);
+            throw new NotFoundException("There is no existing Reviews with id: " + id + " to delete");
         }
         try {
-            iTripRepository.deleteById(id);
-            logger.info("Deleted room {}...", id);
-            return Response.ok().entity("Successfully deleted room " + id).build();
+            iReviewRepository.deleteById(id);
+            logger.info("Deleted Reviews {}...", id);
+            return Response.ok().entity("Successfully deleted Reviews " + id).build();
         } catch (Exception e) {
-            logger.error("Server could not delete room {}...", id);
-            throw new ServerErrorException("Couldn't delete room " + id);
+            logger.error("Server could not delete module {}...", id);
+            throw new ServerErrorException("Couldn't delete Reviews " + id);
         }
     }
 
-}
+    }
+
+
+

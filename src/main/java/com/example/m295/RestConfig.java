@@ -1,7 +1,10 @@
 package com.example.m295;
 
+import com.example.m295.services.ReviewController;
 import com.example.m295.services.TripController;
 import com.example.m295.util.AuthenticationFilter;
+import com.example.m295.util.NotFoundExceptionHandler;
+import com.example.m295.util.ServerErrorExceptionHandler;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
@@ -15,6 +18,9 @@ public class RestConfig extends Application {
         return new HashSet<Class<?>>(
                 Arrays.asList(
                         TripController.class,
-                        AuthenticationFilter.class));
+                        ReviewController.class,
+                        AuthenticationFilter.class,
+                        ServerErrorExceptionHandler.class,
+                        NotFoundExceptionHandler.class));
     }
 }

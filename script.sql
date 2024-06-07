@@ -19,13 +19,7 @@ USE `mydb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Trip` (
                                              `TripID` INT NOT NULL,
-                                             `Destination` VARCHAR(45) NULL,
-    `Start` DATE NULL,
-    `End` DATE NULL,
-    `Price` DOUBLE NULL,
-    `Available` BIT NULL,
-    `Organizer` VARCHAR(45) NULL,
-    `Passengers` INT NULL,
+                                             `destination` VARCHAR(45) NULL,
     PRIMARY KEY (`TripID`))
     ENGINE = InnoDB;
 
@@ -35,12 +29,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Trip` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Review` (
                                                `ReviewID` INT NOT NULL,
-                                               `Trip_TripID` INT NOT NULL,
                                                `Review` VARCHAR(45) NULL,
-    PRIMARY KEY (`ReviewID`, `Trip_TripID`),
-    INDEX `fk_Rating_Trip_idx` (`Trip_TripID` ASC) VISIBLE,
-    CONSTRAINT `fk_Rating_Trip`
-    FOREIGN KEY (`Trip_TripID`)
+    `createdAt` DATE NULL,
+    `rating` DOUBLE NULL,
+    `recommend` BIT NULL,
+    `wordCount` INT NULL,
+    `Trip_copy1_TripID` INT NOT NULL,
+    PRIMARY KEY (`ReviewID`, `Trip_copy1_TripID`),
+    INDEX `fk_Review_copy1_Trip_copy11_idx` (`Trip_copy1_TripID` ASC) VISIBLE,
+    CONSTRAINT `fk_Review_copy1_Trip_copy11`
+    FOREIGN KEY (`Trip_copy1_TripID`)
     REFERENCES `mydb`.`Trip` (`TripID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
