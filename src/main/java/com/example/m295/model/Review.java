@@ -20,7 +20,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reviewId;
 
-    @Size(min = 3, max = 64)
+
+
     private String review;
 
     @FutureOrPresent
